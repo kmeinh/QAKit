@@ -1,0 +1,16 @@
+PODS:
+  - QAKit (0.0.1)
+
+DEPENDENCIES:
+  - QAKit (from `.`)
+
+EXTERNAL SOURCES:
+  QAKit:
+    :path: .
+
+SPEC CHECKSUMS:
+  QAKit: 691ead6c2bfa52d144a0522cd17a2508e43d7ab9
+
+PODFILE CHECKSUM: be8a04ebb749f20d1de07d3c89aecb6a2e9a6e85
+
+COCOAPODS: 1.3.1
