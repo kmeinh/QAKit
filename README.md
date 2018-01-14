@@ -2,6 +2,9 @@
 
 **QAKit** is a handy Library providing functionality to get better QA Results. With Fingertips, it is easy to follow the Testers steps when you just got a recorded video of the Screen.
 
+### Example
+<image src="Github/example.gif" width="300"/>
+
 # Installation
 
 ### Cocoapods
