@@ -121,6 +121,7 @@ private class FingertipView												: UIView {
 		self.layer.masksToBounds = true
 		self.layer.borderWidth = 8
 		self.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
+		self.backgroundColor = UIColor.white.withAlphaComponent(0.2)
 	}
 }
 
