@@ -34,11 +34,9 @@ private class FingertipViewController							: UIViewController {
 
 	fileprivate func update(for event: UIEvent) {
 
-		if #available(iOS 11.0, *) {
-			guard UIScreen.main.isCaptured == true else {
-				self.removeAllTouches()
-				return
-			}
+		guard UIScreen.main.isCaptured == true else {
+			self.removeAllTouches()
+			return
 		}
 
 		guard let allTouches = event.allTouches else {
