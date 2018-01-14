@@ -12,6 +12,7 @@ public struct QAKit {
 
 	// MARK: - Fingertips
 
+	@available(iOS 11.0, *)
 	public struct Fingertips {
 
 		static var window 		: FingertipWindow?

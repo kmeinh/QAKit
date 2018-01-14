@@ -10,6 +10,7 @@ import UIKit
 
 // MARK: - FingertipViewController
 
+@available(iOS 11.0, *)
 private class FingertipViewController							: UIViewController {
 
 	// MARK: - Properties
@@ -22,10 +23,7 @@ private class FingertipViewController							: UIViewController {
 		super.viewDidLoad()
 
 		self.view.backgroundColor = .clear
-
-		if #available(iOS 11.0, *) {
-			NotificationCenter.default.addObserver(forName: Notification.Name.UIScreenCapturedDidChange, object: self, queue: nil, using: {_ in })
-		}
+		NotificationCenter.default.addObserver(forName: Notification.Name.UIScreenCapturedDidChange, object: self, queue: nil, using: {_ in })
 	}
 
 	deinit {
@@ -99,6 +97,7 @@ private class FingertipViewController							: UIViewController {
 
 // MARK: - FingertipView
 
+@available(iOS 11.0, *)
 private class FingertipView												: UIView {
 
 	// MARK: - Properties
@@ -129,6 +128,7 @@ private class FingertipView												: UIView {
 
 // MARK: - FingertipWindow
 
+@available(iOS 11.0, *)
 @objc
 class FingertipWindow											: UIWindow {
 
@@ -166,6 +166,7 @@ class FingertipWindow											: UIWindow {
 
 // MARK: - FingertipWindow Swizzle
 
+@available(iOS 11.0, *)
 extension FingertipWindow {
 
 	fileprivate func swizzleSendEvent() {
@@ -183,6 +184,7 @@ extension FingertipWindow {
 
 // MARK: - UIWindow Swizzle
 
+@available(iOS 11.0, *)
 extension UIWindow {
 
 	// Important: Do not! call this function on your own.
