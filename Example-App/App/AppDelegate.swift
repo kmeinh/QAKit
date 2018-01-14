@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 	func applicationDidFinishLaunching(_ application: UIApplication) {
-		QAKit.Fingertips.start()
+		if #available(iOS 11.0, *) {
+			QAKit.Fingertips.start()
+		}
 	}
 }
