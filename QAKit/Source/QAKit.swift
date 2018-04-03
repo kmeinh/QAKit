@@ -12,19 +12,18 @@ public struct QAKit {
 
 	// MARK: - Fingertips
 
-	@available(iOS 11.0, *)
 	public struct Fingertips {
 
 		static var window 		: FingertipWindow?
 
-		public static func start() {
+		public static func start(mode: FingertipsMode = .onRecord) {
 
 			guard (self.window == nil) else {
 				self.window?.isHidden = false
 				return
 			}
 
-			let window = FingertipWindow()
+			let window = FingertipWindow(mode: mode)
 			window.windowLevel = UIWindowLevelStatusBar
 			window.makeKeyAndVisible()
 			window.backgroundColor = UIColor.clear

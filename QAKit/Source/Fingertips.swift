@@ -8,14 +8,21 @@
 
 import UIKit
 
+public enum FingertipsMode {
+
+	case always
+	case onRecord
+}
+
 // MARK: - FingertipViewController
 
-@available(iOS 11.0, *)
 private class FingertipViewController							: UIViewController {
 
 	// MARK: - Properties
 
 	var fingertipsViews											= [FingertipView]()
+
+	var mode													= FingertipsMode.onRecord
 
 	// MARK: - Life Cycle
 
@@ -23,7 +30,10 @@ private class FingertipViewController							: UIViewController {
 		super.viewDidLoad()
 
 		self.view.backgroundColor = .clear
-		NotificationCenter.default.addObserver(forName: Notification.Name.UIScreenCapturedDidChange, object: self, queue: nil, using: {_ in })
+
+		if #available(iOS 11.0, *) {
+			NotificationCenter.default.addObserver(forName: Notification.Name.UIScreenCapturedDidChange, object: self, queue: nil, using: {_ in })
+		}
 	}
 
 	deinit {
@@ -34,9 +44,16 @@ private class FingertipViewController							: UIViewController {
 
 	fileprivate func update(for event: UIEvent) {
 
-		guard UIScreen.main.isCaptured == true else {
-			self.removeAllTouches()
-			return
+		if #available(iOS 11.0, *) {
+			guard UIScreen.main.isCaptured == true || self.mode == .always else {
+				self.removeAllTouches()
+				return
+			}
+		} else {
+			guard (self.mode == .always) else {
+				self.removeAllTouches()
+				return
+			}
 		}
 
 		guard let allTouches = event.allTouches else {
@@ -69,7 +86,6 @@ private class FingertipViewController							: UIViewController {
 				}, completion: { [weak self] (success: Bool) in
 					self?.fingertipView(for: touch)?.removeFromSuperview()
 				})
-
 			}
 		}
 	}
@@ -95,7 +111,6 @@ private class FingertipViewController							: UIViewController {
 
 // MARK: - FingertipView
 
-@available(iOS 11.0, *)
 private class FingertipView												: UIView {
 
 	// MARK: - Properties
@@ -127,7 +142,6 @@ private class FingertipView												: UIView {
 
 // MARK: - FingertipWindow
 
-@available(iOS 11.0, *)
 @objc
 class FingertipWindow											: UIWindow {
 
@@ -143,9 +157,10 @@ class FingertipWindow											: UIWindow {
 
 	// MARK: - Init
 
-	init() {
+	init(mode: FingertipsMode) {
 		super.init(frame: UIScreen.main.bounds)
 		self.rootViewController = FingertipViewController()
+		self.fingertipsViewController?.mode = mode
 
 		self.swizzleSendEvent()
 
@@ -165,7 +180,6 @@ class FingertipWindow											: UIWindow {
 
 // MARK: - FingertipWindow Swizzle
 
-@available(iOS 11.0, *)
 extension FingertipWindow {
 
 	fileprivate func swizzleSendEvent() {
@@ -183,7 +197,6 @@ extension FingertipWindow {
 
 // MARK: - UIWindow Swizzle
 
-@available(iOS 11.0, *)
 extension UIWindow {
 
 	// Important: Do not! call this function on your own.
