@@ -14,26 +14,14 @@ public struct QAKit {
 
 	public struct Fingertips {
 
-		static var window 		: FingertipWindow?
-
 		public static func start(mode: FingertipsMode = .onRecord) {
 
-			guard (self.window == nil) else {
-				self.window?.isHidden = false
-				return
-			}
-
-			let window = FingertipWindow(mode: mode)
-			window.windowLevel = UIWindowLevelStatusBar
-			window.makeKeyAndVisible()
-			window.backgroundColor = UIColor.clear
-			window.isHidden = false
-			self.window = window
+			FingertipsManager.shared = FingertipsManager(mode: mode)
 		}
 
 		public static func hide() {
 
-			self.window?.isHidden = true
+			FingertipsManager.shared = nil
 		}
 	}
 }

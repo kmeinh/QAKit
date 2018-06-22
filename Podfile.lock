@@ -1,16 +1,16 @@
 PODS:
-  - QAKit (0.0.3)
+  - QAKit (0.0.6)
 
 DEPENDENCIES:
   - QAKit (from `.`)
 
 EXTERNAL SOURCES:
   QAKit:
-    :path: .
+    :path: "."
 
 SPEC CHECKSUMS:
-  QAKit: 58bd1279aff08c63f2a9cdb1dd76a16cc1f9d172
+  QAKit: 7111791ea176849c1ec35653ec7bf37f492f269a
 
 PODFILE CHECKSUM: be8a04ebb749f20d1de07d3c89aecb6a2e9a6e85
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

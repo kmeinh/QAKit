@@ -14,35 +14,54 @@ public enum FingertipsMode {
 	case onRecord
 }
 
-// MARK: - FingertipViewController
+class FingertipsManager {
 
-private class FingertipViewController							: UIViewController {
+	static var shared				: FingertipsManager?
 
-	// MARK: - Properties
+	static var swizzled 			= false
 
-	var fingertipsViews											= [FingertipView]()
+	private var fingertipsViews		= [FingertipView]()
+	private var mode				: FingertipsMode
 
-	var mode													= FingertipsMode.onRecord
+	init(mode: FingertipsMode) {
 
-	// MARK: - Life Cycle
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
-		self.view.backgroundColor = .clear
+		self.mode = mode
+		self.keyWindow?.swizzleSendEvent()
 
 		if #available(iOS 11.0, *) {
 			NotificationCenter.default.addObserver(forName: Notification.Name.UIScreenCapturedDidChange, object: self, queue: nil, using: {_ in })
 		}
+
+		NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
+	}
+
+	@objc
+	private func applicationDidBecomeActive() {
+		self.keyWindow?.swizzleSendEvent()
+	}
+
+	var keyWindow: UIWindow? {
+		return UIApplication.shared.keyWindow
+	}
+
+	var topWindow: UIWindow? {
+		guard let keyWindow = self.keyWindow else {
+			return nil
+		}
+
+		return UIApplication.shared.windows.reduce(keyWindow, { (currentWindow, nextWindow) -> UIWindow in
+			return (nextWindow.isHidden == false && nextWindow.windowLevel > currentWindow.windowLevel) ? nextWindow : currentWindow
+		})
 	}
 
 	deinit {
+		self.removeAllTouches()
 		NotificationCenter.default.removeObserver(self)
 	}
 
-	// MARK: - Update
+	// MARK: - Touches
 
-	fileprivate func update(for event: UIEvent) {
+	func update(for event: UIEvent) {
 
 		if #available(iOS 11.0, *) {
 			guard UIScreen.main.isCaptured == true || self.mode == .always else {
@@ -56,8 +75,11 @@ private class FingertipViewController							: UIViewController {
 			}
 		}
 
-		guard let allTouches = event.allTouches else {
-			return
+		guard
+			let allTouches = event.allTouches,
+			let topWindow = self.topWindow else {
+				self.removeAllTouches()
+				return
 		}
 
 		for touch in allTouches {
@@ -66,16 +88,16 @@ private class FingertipViewController							: UIViewController {
 			case .began			:
 				let frame = CGRect(origin: .zero, size: CGSize(width: 50, height: 50))
 				let view = FingertipView(touch: touch, frame: frame)
-				view.center = touch.location(in: self.view)
+				view.center = touch.location(in: topWindow)
 				view.updateTouch()
 				self.fingertipsViews.append(view)
-				self.view.addSubview(view)
+				topWindow.addSubview(view)
 			case .moved			:
 				guard let view = self.fingertipView(for: touch) else {
 					continue
 				}
 
-				view.center = touch.location(in: self.view)
+				view.center = touch.location(in: topWindow)
 				view.updateTouch()
 			case .stationary	: continue
 			case .cancelled,
@@ -98,8 +120,6 @@ private class FingertipViewController							: UIViewController {
 
 		self.fingertipsViews = []
 	}
-
-	// MARK: - Helper
 
 	private func fingertipView(for touch: UITouch) -> FingertipView? {
 
@@ -137,72 +157,5 @@ private class FingertipView												: UIView {
 		self.layer.borderWidth = 8
 		self.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
 		self.backgroundColor = UIColor.white.withAlphaComponent(0.2)
-	}
-}
-
-// MARK: - FingertipWindow
-
-@objc
-class FingertipWindow											: UIWindow {
-
-	// MARK: - Private Properties
-
-	fileprivate var swizzled									= false
-
-	fileprivate static var current								: FingertipWindow?
-
-	fileprivate var fingertipsViewController					: FingertipViewController? {
-		return self.rootViewController as? FingertipViewController
-	}
-
-	// MARK: - Init
-
-	init(mode: FingertipsMode) {
-		super.init(frame: UIScreen.main.bounds)
-		self.rootViewController = FingertipViewController()
-		self.fingertipsViewController?.mode = mode
-
-		self.swizzleSendEvent()
-
-		FingertipWindow.current = self
-	}
-
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	// MARK: - Hittest
-
-	override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-		return false
-	}
-}
-
-// MARK: - FingertipWindow Swizzle
-
-extension FingertipWindow {
-
-	fileprivate func swizzleSendEvent() {
-
-		guard self.swizzled == false else {
-			return
-		}
-
-		self.swizzled = true
-		let sendEvent = class_getInstanceMethod(object_getClass(self), #selector(UIApplication.sendEvent(_:)))
-		let swizzledSendEvent = class_getInstanceMethod(object_getClass(self), #selector(UIWindow.__swizzled_sendEvent(_:)))
-		method_exchangeImplementations(sendEvent!, swizzledSendEvent!)
-	}
-}
-
-// MARK: - UIWindow Swizzle
-
-extension UIWindow {
-
-	// Important: Do not! call this function on your own.
-	@objc public func __swizzled_sendEvent(_ event: UIEvent) {
-
-		FingertipWindow.current?.fingertipsViewController?.update(for: event)
-		__swizzled_sendEvent(event)
 	}
 }

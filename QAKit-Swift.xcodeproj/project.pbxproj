@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3E27E7EB1FBDD82900C94D4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E80C5761F9228A6001E896D /* Assets.xcassets */; };
+		3E3A0ABA20DC93FC004EFFA2 /* QAKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EB01175200954510044EFC7 /* QAKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3E80C5701F922892001E896D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80C5651F922892001E896D /* AppDelegate.swift */; };
 		3E80C5711F922892001E896D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80C5681F922892001E896D /* MainViewController.swift */; };
 		3E80C5741F922892001E896D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E80C56E1F922892001E896D /* LaunchScreen.storyboard */; };
 		3E80C5751F922892001E896D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E80C56F1F922892001E896D /* Main.storyboard */; };
-		3EB01177200954510044EFC7 /* QAKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EB01175200954510044EFC7 /* QAKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3EB0117E2009548A0044EFC7 /* Fingertips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0117C2009548A0044EFC7 /* Fingertips.swift */; };
 		3EB0117F2009548A0044EFC7 /* QAKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB0117D2009548A0044EFC7 /* QAKit.swift */; };
+		3ED2F2AE20DC8AB8004914BD /* Fingertips+Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2F2AD20DC8AB8004914BD /* Fingertips+Window.swift */; };
 		DA1B1D819ECDA859008930D2 /* Pods_QAKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1549CC262573A8395BD6B21A /* Pods_QAKit_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		3EB01176200954510044EFC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EB0117C2009548A0044EFC7 /* Fingertips.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fingertips.swift; sourceTree = "<group>"; };
 		3EB0117D2009548A0044EFC7 /* QAKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QAKit.swift; sourceTree = "<group>"; };
+		3ED2F2AD20DC8AB8004914BD /* Fingertips+Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fingertips+Window.swift"; sourceTree = "<group>"; };
 		4ABB83397BB6850412EF9E65 /* Pods-QAKit-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QAKit-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QAKit-Example/Pods-QAKit-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		BB08618AB3247C3507EF903C /* Pods-QAKit-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QAKit-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-QAKit-Example/Pods-QAKit-Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,8 +151,9 @@
 		3EB0117B2009548A0044EFC7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3EB0117C2009548A0044EFC7 /* Fingertips.swift */,
 				3EB0117D2009548A0044EFC7 /* QAKit.swift */,
+				3EB0117C2009548A0044EFC7 /* Fingertips.swift */,
+				3ED2F2AD20DC8AB8004914BD /* Fingertips+Window.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -171,7 +174,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EB01177200954510044EFC7 /* QAKit.h in Headers */,
+				3E3A0ABA20DC93FC004EFFA2 /* QAKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +190,6 @@
 				3E80C5491F922809001E896D /* Frameworks */,
 				3E80C54A1F922809001E896D /* Resources */,
 				CCD6C307465C4016524EE960 /* [CP] Embed Pods Frameworks */,
-				7D232D095CCA30A3230904D8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -276,21 +278,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7D232D095CCA30A3230904D8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QAKit-Example/Pods-QAKit-Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B21DAE9EDE31C114C3688BBB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ED2F2AE20DC8AB8004914BD /* Fingertips+Window.swift in Sources */,
 				3EB0117F2009548A0044EFC7 /* QAKit.swift in Sources */,
 				3EB0117E2009548A0044EFC7 /* Fingertips.swift in Sources */,
 			);
@@ -466,7 +454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N8TQ2CV8YW;
-				INFOPLIST_FILE = "$(SRCROOT)/Example-App/PList/Example-Info.plist";
+				INFOPLIST_FILE = "Example-App/PList/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.QAKit-Example";
@@ -484,7 +472,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N8TQ2CV8YW;
-				INFOPLIST_FILE = "$(SRCROOT)/Example-App/PList/Example-Info.plist";
+				INFOPLIST_FILE = "Example-App/PList/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.QAKit-Example";

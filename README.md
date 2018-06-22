@@ -13,7 +13,7 @@ QAKit is available through [CocoaPods](https://cocoapods.org/about). To install 
 
 ```
 use_frameworks!
-pod "QAKit", '~> 0.0.5'
+pod "QAKit", '~> 0.0.6'
 ```
 
 # Usage
