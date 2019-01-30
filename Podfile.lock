@@ -1,5 +1,5 @@
 PODS:
-  - QAKit (0.0.6)
+  - QAKit (0.0.7)
 
 DEPENDENCIES:
   - QAKit (from `.`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  QAKit: 7111791ea176849c1ec35653ec7bf37f492f269a
+  QAKit: 8e94580138a6632751bf9b2553164d2852ceba7d
 
 PODFILE CHECKSUM: be8a04ebb749f20d1de07d3c89aecb6a2e9a6e85
 
