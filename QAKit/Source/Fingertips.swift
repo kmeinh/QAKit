@@ -29,10 +29,10 @@ class FingertipsManager {
 		self.keyWindow?.swizzleSendEvent()
 
 		if #available(iOS 11.0, *) {
-			NotificationCenter.default.addObserver(forName: Notification.Name.UIScreenCapturedDidChange, object: self, queue: nil, using: {_ in })
+			NotificationCenter.default.addObserver(forName: UIScreen.capturedDidChangeNotification, object: self, queue: nil, using: {_ in })
 		}
 
-		NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
 	@objc
