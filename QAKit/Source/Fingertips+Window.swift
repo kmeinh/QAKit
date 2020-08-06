@@ -27,7 +27,7 @@ public extension UIWindow {
 	}
 
 	// Important: Do not! call this function on your own.
-	@objc public func __swizzled_sendEvent(_ event: UIEvent) {
+	@objc func __swizzled_sendEvent(_ event: UIEvent) {
 
 		FingertipsManager.shared?.update(for: event)
 		__swizzled_sendEvent(event)
