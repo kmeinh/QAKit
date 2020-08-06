@@ -108,9 +108,9 @@ class FingertipsManager {
 				}, completion: { [weak self] (success: Bool) in
 					self?.fingertipView(for: touch)?.removeFromSuperview()
 				})
-            @unknown default:
-                continue
-            }
+			@unknown default:
+				continue
+			}
 		}
 	}
 
